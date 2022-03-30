@@ -7,39 +7,45 @@
 //mas de 200 unidades de energía. Finalmente, una función //callback debe permitir entregar la sumatoria de niveles de
 //energía entregados por los alimentos vegetales consumidos en //la dieta de Grogu.
 
-let alimentos = ["pollo","cerdo","pavo","res","pescado","lechuga","zanahoria","manzana","uvas","grillos","mariposas","cucarachas","gusanos"]
-let tipos = ["vegetal", "animal", "insectos"]
-let alimentosVegetales = []
+let nombres = ["elefante","mariposa","lechuga","mango","mandarina","tortuga","fresa","grillo","camaron","pollo","calamar","algas", "semillas","aguacate"];
+let tipos = ["animal","vegetal","insectos"];
+let energias = [265,780,945,200,460,120,50,530,100, 65,800,306,199,400,30,14];
 
-    for(let i=0; i<=50; i++){
-       
-        
-        let alimentoVegetal ={}
+let alimentos = [];
 
-        alimentoVegetal.nombre =alimentos[Math.floor(Math.random() * alimentos.length)]
-        alimentoVegetal.calorias = Math.floor(Math.random() * (500 - 100) + 100 )
-        alimentoVegetal.tipos = Math.floor(Math.random( )no)
-        alimentosVegetales.push(alimentoVegetal)
-    }
-    // console.log(alimentosVegetales)
+for(let i = 0; i < 50; i++){
+    let alimento = {};
 
-function clasificarDieta (alimentosVegetales, callback){
+    alimento.nombre = nombres [Math.floor(Math.random() * nombres.length)];
+    alimento.tipo = tipos [Math.floor(Math.random() * tipos.length)];
+    alimento.energia = energias [Math.floor(Math.random() * energias.length)];
 
-    setTimeout(()=>{
-       let totalvegetales = alimentosVegetales.filter((vegetales)=>{
-            return(vegetales.nombre ==('lechuga','zanahoria','manzana','uvas') && vegetales.calorias >= 200)
-
-        })
-        callback(totalvegetales)
-    },2000)
-    
+    alimentos.push(alimento);
 }
 
-clasificarDieta(alimentosVegetales,function (totalvegetales){
-    let sumaCalorias = 0
-    totalvegetales.forEach(function(finalvegetal){
-        sumaCalorias = sumaCalorias + finalvegetal.calorias
-    })
-    console.log(totalvegetales)
-    console.log("El total de calorias que debe de consumir es de: "+sumaCalorias)
-})
+
+function entrenamiento(dietas,callback){
+    setTimeout(function(){ 
+
+        let tipos = dietas.filter(function(dieta){
+
+            return (dieta.tipo == "vegetal" && dieta.energia > 200);
+
+        })
+
+        callback(tipos);
+
+    }, 5000)
+}
+
+entrenamiento(alimentos,function (tipos){
+
+    let resultado = 0;
+
+    tipos.forEach(function(tipo) {
+        resultado += tipo.energia; 
+    });
+
+    console.log(tipos);
+    console.log("La cantidad total de energias de la dieta de grogu es : " +resultado);
+});
